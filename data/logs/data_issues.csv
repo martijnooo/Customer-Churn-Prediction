@@ -1,0 +1,12 @@
+Dataset	Column	Issue Type	Example / Observation	Proposed Action	Priority	Notes
+customers	country	Invalid category	"""??"", """""	Map to None	High	Keep track of how many affected
+customers	age	Missing values	NaN	Impute with median or flag	Medium	Check distribution before imputing
+customers	signup_date	Inconsistent format	"""12/05/2021"" vs ""2021-05-12"""	Standardize to YYYY-MM-DD	High	Might affect time-based features
+customers	plan_type	Invalid / unknown	"""?"", None"	Map to Unknown	Medium	Or drop if too few
+customers	duplicates	Duplicate rows	Exact duplicates	Drop duplicates	High	Record how many rows removed
+transactions	customer_id	Orphan ID	"""C999999"""	Drop / map to unknown	High	Could indicate external data
+transactions	call_minutes	Negative value	-5	Set to 0 or leave if refund	Medium	Decide rule for refunds
+transactions	data_usage_gb	Outliers	50 GB for single month	Cap at 99th percentile or leave	Low	Document threshold
+support_interactions	timestamp	Mixed formats	"""2023-01-12 15:22"" vs ""12/01/2023 15:22"""	Standardize datetime	High	Important for temporal features
+support_interactions	resolution_time_min	Missing values	None	Impute with median or flag	Medium	Only if used in features
+support_interactions	customer_id	Missing / invalid	""""""	Drop / map to unknown	High	Should match customers table
